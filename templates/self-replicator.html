@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Self-replicating app</title>
+    <style type="text/css">
+        body {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 13px;
+		}
+        .success, .error {
+			border: 1px solid;
+			margin: 10px 0px;
+			padding: 15px 10px 15px 50px;
+			background-repeat: no-repeat;
+			background-position: 10px center;
+		}
+        .success {
+			color: #4F8A10;
+			background-color: #DFF2BF;
+		}
+        .error {
+            color: #D8000C;
+			background-color: #FFBABA;
+        }
+    </style>
+</head>
+<body>
+    <h2>This is self-replicating app</h2>
+    {% if not session.token %}
+        <h4>Please authorize at GitHub</h4>
+        <a href="https://github.com/login/oauth/authorize?client_id={{ config['GITHUB_CLIENT_ID'] }}&scope=public_repo&state={{ session.rand }}">GitHub OAuth sign in</a>
+    {% else %}
+        <form action="/clone" method="get">
+            Please provide repository name.<br>
+            It will be created in your public GitHub space and this code will be put there.<br>
+            <input type="text" name="reponame">
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+    {% if success %}
+        <div class="success">{{ success }}</div>
+    {% endif %}
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+</body>
+</html>
