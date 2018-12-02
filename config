@@ -1,0 +1,6 @@
+SECRET_KEY = b'j@38Nr)nF\k3(32_'
+INDEX_TEMPLATE = 'self-replicator.html'
+
+GITHUB_CLIENT_ID = '<REPLACE_ME>'
+GITHUB_CLIENT_SECRET = '<REPLACE_ME>'
+
